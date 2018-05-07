@@ -28,15 +28,16 @@ namespace BackupCopy.Dal.Module
         public int ClusterMemory { get; set; }
         public override double getMemory()
         {
-            return 0;
+            return ClusterMemory;
         }
         public override void Copy()
         {
             int sum = ClusterMemory / SpeedHDD;
+            Console.WriteLine("Идёт копирование...");
             for (int i = 0; i < sum; i++)
             {
                 Console.Write("-");
-                Thread.Sleep(500);
+                Thread.Sleep(10);
             }
         }
         public override void PrintInfo()

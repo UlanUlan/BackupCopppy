@@ -26,7 +26,7 @@ namespace BackupCopy.Dal.Module
             double sum = 0;
             foreach (HDD item in hdd)
             {
-                sum += item.ClusterMemory / item.SpeedHDD;
+                sum += item.getMemory() / item.SpeedHDD;
             }
             return TimeSpan.FromMilliseconds(sum);
         }
@@ -35,7 +35,7 @@ namespace BackupCopy.Dal.Module
             double sum = 0;
             foreach (Flash item in flash)
             {
-                sum += item.MemoryFlash / item.SpeedFlash;
+                sum += item.getMemory() / item.SpeedFlash;
             }
             return TimeSpan.FromMilliseconds(sum);
         }
@@ -44,7 +44,7 @@ namespace BackupCopy.Dal.Module
             double sum = 0;
             foreach (DVD item in dvd)
             {
-                sum += item.getMemory() / item.SpeedWrite;
+                sum += item.getMemory() / item.SpeedWrite; 
             }
             return TimeSpan.FromMilliseconds(sum);
         }
@@ -58,10 +58,10 @@ namespace BackupCopy.Dal.Module
             return Int32.Parse(Math.Ceiling(MemoryData / flash.MemoryFlash).ToString());
         }
 
-        private void DeviceCounter( HDD hdd, double MemoryData, out int count)
-        {
-            count = Int32.Parse(Math.Ceiling(MemoryData / hdd.getMemory()).ToString());
-        }
+        //private void DeviceCounter( HDD hdd, double MemoryData, out int count)
+        //{
+        //    count = Int32.Parse(Math.Ceiling(MemoryData / hdd.getMemory()).ToString());
+        //}
         private int DeviceCounter(HDD hdd, double MemoryData)
         {
             return Int32.Parse(Math.Ceiling(MemoryData / hdd.getMemory()).ToString());
@@ -82,9 +82,21 @@ namespace BackupCopy.Dal.Module
             }
             return 0;
         }
-        public static void PrintName()
+        public int getCounter(List<HDD> hdd, double MemoryData)
         {
- //           Console.WriteLine("{0},", Time);
+            foreach (HDD item in hdd)
+            {
+                item.Count = DeviceCounter(item, MemoryData);
+            }
+            return 0;
+        }
+        public int getCounter(List<DVD> dvd, double MemoryData)
+        {
+            foreach (DVD item in dvd)
+            {
+                item.Count = DeviceCounter(item, MemoryData);
+            }
+            return 0;
         }
     }
 }

@@ -59,10 +59,11 @@ namespace BackupCopy.Dal.Module
         public override void Copy()
         {
             int sum = (int)MemoryFlash / SpeedFlash;
+            Console.WriteLine("Идёт копирование...");
             for (int i = 0; i < sum; i++)
             {
                 Console.Write("-");
-                Thread.Sleep(500);
+                Thread.Sleep(50);
             }
         }
     }

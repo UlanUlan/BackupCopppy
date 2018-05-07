@@ -14,14 +14,14 @@ namespace BackupCopy.Dal.Module
         {
 
         }
-        public DVD(int SpeedWrite) :this(SpeedWrite, TypeDVD.OneSide)
+        public DVD(double SpeedWrite) :this(SpeedWrite, TypeDVD.OneSide)
         {
 
         }
-        public DVD(int SpeedWrite, TypeDVD typeDVD) :base()
+        public DVD(double _SpeedWrite, TypeDVD _typeDVD) :base()
         {
-            typeDVD = typeDVD;
-            SpeedWrite = SpeedWrite;
+            typeDVD = _typeDVD;
+            SpeedWrite = _SpeedWrite;
         }
         
         public DVD(string name)
@@ -29,16 +29,16 @@ namespace BackupCopy.Dal.Module
             base.Name = name;
             base.Model = "gsgas";
         }
-        public int SpeedWrite { get; set; }
+        public double SpeedWrite { get; set; }
         public int SpeedRead { get; set; }
         public TypeDVD typeDVD { get; set; }
 
         public override double getMemory()
         {
             if (TypeDVD.OneSide == typeDVD)
-                return 4.7;
+                return 4700.0;
             else
-                return 9.4;
+                return 9400.0;
         }
      
         public override void PrintInfo()
@@ -47,11 +47,12 @@ namespace BackupCopy.Dal.Module
         }
         public override void Copy()
         {
-            int sum = (int)getMemory() / SpeedWrite;
+            int sum = (int)getMemory() / (int)SpeedWrite;
+            Console.WriteLine("Идёт копирование...");
             for (int i = 0; i < sum; i++)
             {
                 Console.Write("-");
-                Thread.Sleep(100);
+                Thread.Sleep(50);
             }
         }
     }
